@@ -25,11 +25,16 @@ IMAGE_DIR="$BASE_DIR/images"
   press_key_with_control $KEY_NUMBER_1
   sleep 1
 
-  for filename in $IMAGE_DIR/*.{jpg,jpeg,png}(N)
+  for filename in $IMAGE_DIR/*.{jpg,jpeg,png,heic}(N)
   do
     # Set the given wallpaper to the current screen
-    wallpaper set --screen main "$filename"
-    sleep 2
+    if [[ "$filename" =~ sub\.(jpg|jpeg|png|heic)$ ]]; then
+      wallpaper set --screen 1 "$filename"
+      sleep 2
+    else
+      wallpaper set --screen 0 "$filename"
+      sleep 2
+    fi
 
     # Go forward next screen
     press_key_with_control $KEY_RIGHT
